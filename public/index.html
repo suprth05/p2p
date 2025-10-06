@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>P2P Video Chat App</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Home Screen -->
+    <div id="home-screen">
+      <h1>P2P Video Chat</h1>
+      <div class="button-group">
+        <button id="create-btn" class="primary-btn">Create Room</button>
+        <div class="join-form">
+          <input type="text" id="room-id-input" placeholder="Enter Room ID">
+          <button id="join-btn" class="secondary-btn">Join Room</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat Room Screen -->
+    <div id="chat-room" class="hidden">
+      <div class="room-info">
+        <h2>Room ID: <span id="room-id-display"></span></h2>
+        <button id="copy-room-id" class="icon-btn">
+          <span class="material-icons">content_copy</span>
+        </button>
+        <button id="leave-btn" class="danger-btn">Leave</button>
+      </div>
+
+      <div class="video-container">
+        <div class="video-grid" id="video-grid">
+          <!-- Local video -->
+          <div class="video-wrapper local-video-container">
+            <video id="local-video" autoplay muted></video>
+            <div class="video-label">You</div>
+          </div>
+          <!-- Remote videos will be added here dynamically -->
+        </div>
+
+        <div class="waiting-screen hidden" id="waiting-screen">
+          <h2>Waiting</h2>
+          <p>Waiting for users to join.</p>
+          <div class="controls-row">
+            <button class="control-btn" id="waiting-mic-btn">
+              <span class="material-icons">mic</span>
+            </button>
+            <button class="control-btn" id="waiting-video-btn">
+              <span class="material-icons">videocam</span>
+            </button>
+            <button class="control-btn" id="waiting-share-btn">
+              <span class="material-icons">screen_share</span>
+            </button>
+            <button class="control-btn" id="waiting-chat-btn">
+              <span class="material-icons">chat</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls-container">
+        <button class="control-btn" id="mic-btn">
+          <span class="material-icons">mic</span>
+        </button>
+        <button class="control-btn" id="video-btn">
+          <span class="material-icons">videocam</span>
+        </button>
+        <button class="control-btn" id="screen-share-btn">
+          <span class="material-icons">screen_share</span>
+        </button>
+        <button class="control-btn" id="chat-btn">
+          <span class="material-icons">chat</span>
+        </button>
+        <button class="control-btn" id="file-btn">
+          <span class="material-icons">attach_file</span>
+        </button>
+        <button class="control-btn" id="settings-btn">
+          <span class="material-icons">settings</span>
+        </button>
+      </div>
+
+      <div class="chat-container" id="chat-container">
+        <div class="chat-header">
+          <h3>Chat</h3>
+          <button id="close-chat" class="icon-btn">
+            <span class="material-icons">close</span>
+          </button>
+        </div>
+        <div class="messages" id="messages"></div>
+        <div class="chat-input-container">
+          <input type="text" id="chat-input" placeholder="Type a message...">
+          <button id="send-btn" class="icon-btn">
+            <span class="material-icons">send</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- File Sharing Container -->
+      <div class="file-container" id="file-container">
+        <div class="file-header">
+          <h3>Share Files</h3>
+          <button id="close-file" class="icon-btn">
+            <span class="material-icons">close</span>
+          </button>
+        </div>
+        <div class="file-content">
+          <div class="file-upload-section">
+            <label for="file-input" class="file-label">
+              <span class="material-icons">cloud_upload</span>
+              <span>Select file to share</span>
+            </label>
+            <input type="file" id="file-input" class="hidden">
+            <p class="file-info">Maximum file size: 100MB</p>
+          </div>
+          
+          <div class="file-transfers" id="file-transfers">
+            <!-- File transfers will be displayed here -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Settings</h2>
+          <button id="close-settings" class="icon-btn">
+            <span class="material-icons">close</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="setting-item">
+            <label for="video-source">Camera</label>
+            <select id="video-source"></select>
+          </div>
+          <div class="setting-item">
+            <label for="audio-source">Microphone</label>
+            <select id="audio-source"></select>
+          </div>
+          <div class="setting-item">
+            <label for="video-quality">Video quality</label>
+            <select id="video-quality">
+              <option value="low">Low (320x240)</option>
+              <option value="medium" selected>Medium (640x480)</option>
+              <option value="high">High (1280x720)</option>
+            </select>
+          </div>
+          <div class="setting-item checkbox">
+            <label for="best-quality">Best quality</label>
+            <input type="checkbox" id="best-quality">
+          </div>
+          <div class="setting-item checkbox">
+            <label for="aspect-ratio">Maintain aspect ratio</label>
+            <input type="checkbox" id="aspect-ratio" checked>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load scripts -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="js/webrtc.js"></script>
+  <script src="js/chat.js"></script>
+  <script src="js/filesharing.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

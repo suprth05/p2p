@@ -1,0 +1,17 @@
+directory structure 
+
+app
+|---public
+|   |---styles.css
+|   |---index.html
+|   |---js
+|       |---chat.js
+|       |---filesharing.js
+|       |---main.js
+|       |----webrtc.js
+|---server
+    |---server.js
+    |---package.json
+    |---certs
+        |---key.pem
+        |---cert.pem
